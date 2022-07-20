@@ -25,8 +25,7 @@ public class MyWebController {
         return service.searchMusic(name);
     }
     @GetMapping(value="/musicSearch")
-    public MusicList musicSearchByParam(@RequestParam(value="term") String
-                                                name) {
+    public MusicList musicSearchByParam(@RequestParam(value="term") String name) {
         return service.searchMusic(name);
     }
 
@@ -37,6 +36,11 @@ public class MyWebController {
     @PostMapping(value="/likes")
     public int postLikes(@RequestBody FavoriteMusicRequestDto favorite) {
         return service.saveFavorite(favorite);
+    }
+
+    @DeleteMapping(value="/likes/{id}")
+    public String deleteLikes(@PathVariable String id){
+        return service.deleteFavorite(id);
     }
 }
 

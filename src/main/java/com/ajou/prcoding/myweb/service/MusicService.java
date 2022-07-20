@@ -7,6 +7,7 @@ import com.ajou.prcoding.myweb.repository.FavoriteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
@@ -21,23 +22,31 @@ public class MusicService {
     RestTemplate restTemplate = new RestTemplate();
 
     public MusicList searchMusic(String name) {
-        try{
-            String response = restTemplate.getForObject("https://itunes.apple.com/search?term="+name+"&entity=album", String.class);
+        try {
+            String response = restTemplate.getForObject("https://itunes.apple.com/search?term=" + name + "&entity=album", String.class);
             ObjectMapper mapper = new ObjectMapper();
             MusicList list = mapper.readValue(response, MusicList.class);
             System.out.println(list.getResultCount());
             return list;
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println(e.toString());
         }
         return null;
     }
 
     public List<FavoriteMusic> getLikes() {
-        try{
+        try {
             return albumsRepo.findAll();
+        } catch (Exception e) {
+            System.out.println(e.toString());
         }
-        catch(Exception e){
+        return null;
+    }
+
+    public List<FavoriteMusic> deleteLikes() {
+        try {
+            return albumsRepo.findAll();
+        } catch (Exception e) {
             System.out.println(e.toString());
         }
         return null;
@@ -45,11 +54,21 @@ public class MusicService {
 
     public int saveFavorite(FavoriteMusicRequestDto favorite) {
         FavoriteMusic music = albumsRepo.save(favorite.toEntity());
-        if(music != null) {
+        if (music != null) {
             return 1;
-        }
-        else {
+        } else {
             return 0;
         }
     }
+
+    public String deleteFavorite(@PathVariable String id) {
+        try {
+            albumsRepo.deleteById(id);
+            return "0";
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return "1";
+        }
+    }
 }
+
