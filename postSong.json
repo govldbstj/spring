@@ -1,0 +1,22 @@
+{
+	"wrapperType":"collection",
+	"collectionType":"Album",
+	"artistId":994656,
+	"collectionId":580708175,
+	"amgArtistId":4739,
+	"artistName":"Led Zeppelin",
+	"collectionName":"Led Zeppelin IV (Remastered)",
+	"collectionCensoredName":"Led Zeppelin IV (Remastered)",
+	"artistViewUrl":"https://music.apple.com/us/artist/led-zeppelin/994656?uo=4",
+	"collectionViewUrl":"https://music.apple.com/us/album/led-zeppelin-iv-remastered/580708175?uo=4",
+	"artworkUrl60":"https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/5c/15/9b/5c159b27-95ca-b9a7-84e3-28e795fffd39/dj.kvkrpptq.jpg/60x60bb.jpg",
+	"artworkUrl100":"https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/5c/15/9b/5c159b27-95ca-b9a7-84e3-28e795fffd39/dj.kvkrpptq.jpg/100x100bb.jpg",
+	"collectionPrice":9.99,
+	"collectionExplicitness":"notExplicit",
+	"trackCount":8,
+	"copyright":"℗ 1971 Atlantic Recording Corporation, a Warner Music Group Company. Marketed by Rhino Entertainment Company, a Warner Music Group Company.",
+	"country":"USA",
+	"currency":"USD",
+	"releaseDate":"1971-11-08T08:00:00Z",
+	"primaryGenreName":"Rock"
+}
