@@ -58,4 +58,18 @@ public class MyWebController {
         }
         return null;
     }
+
+    @PostMapping(value="/likes")
+    @Transactional
+    public int postLikes(@RequestBody FavoriteMusicRequestDto favorite)
+    {
+        FavoriteMusic music = albumsRepo.save(favorite.toEntity());
+        if(music != null) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+
 }
