@@ -24158,7 +24158,7 @@ function MusicList(_ref) {
       snackState = _React$useState4[0],
       setSnackState = _React$useState4[1];
 
-  var toggleFavorite = function toggleFavorite(id, name) {
+  var toggleFavorite = function toggleFavorite(id, name, r, cnt) {
     return function () {
       // React Hooks useState() with Object
       // https://stackoverflow.com/questions/54150783/react-hooks-usestate-with-object
@@ -24169,6 +24169,27 @@ function MusicList(_ref) {
         open: true,
         msg: "".concat(name, " is clicked")
       }));
+      fetch("likes", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(r)
+      }).then(function (r) {
+        return r.json();
+      }).then(cnt = 1).then(console.log(cnt));
+
+      if (cnt == 1) {
+        fetch("likes/".concat(id), {
+          method: "DELETE",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(r)
+        }).then(function (r) {
+          return r.json();
+        }).then(cnt = 0).then(console.log(cnt));
+      }
     };
   };
 
@@ -24192,7 +24213,7 @@ function MusicList(_ref) {
     }, " ", item.artistName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
       variant: "subtitle2"
     }, " ", item.collectionCensoredName)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
-      onClick: toggleFavorite(item.collectionId, item.collectionName)
+      onClick: toggleFavorite(item.collectionId, item.collectionName, item, item.count)
     }, likes[item.collectionId] === true ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_icons_material__WEBPACK_IMPORTED_MODULE_7__["default"], null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_icons_material__WEBPACK_IMPORTED_MODULE_8__["default"], null))));
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SnackMsg__WEBPACK_IMPORTED_MODULE_1__["default"], {
     open: snackState.open,
@@ -24248,18 +24269,13 @@ function SearchPage(_ref) {
     setSearchWord('');
     fetch("/musicSearch/".concat(searchWord), {
       method: "GET"
-      /*headers : {
-          'Content-type' : 'text/javascript'
-      }*/
-
-    }).then(function (response) {
-      return response.json();
     }).then(function (r) {
       return r.json();
     }).then(function (r) {
       console.log(r);
-      console.log(onSearch(r.results));
+      onSearch(r.results);
       setSearchWord('');
+      r.count = 0;
     })["catch"](function (e) {
       return console.log('error when search musician');
     });

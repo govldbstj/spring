@@ -26,7 +26,6 @@ public class MusicService {
             String response = restTemplate.getForObject("https://itunes.apple.com/search?term=" + name + "&entity=album", String.class);
             ObjectMapper mapper = new ObjectMapper();
             MusicList list = mapper.readValue(response, MusicList.class);
-            System.out.println(list.getResultCount());
             return list;
         } catch (IOException e) {
             System.out.println(e.toString());
