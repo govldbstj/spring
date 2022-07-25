@@ -24163,8 +24163,7 @@ function MusicList(_ref) {
       // React Hooks useState() with Object
       // https://stackoverflow.com/questions/54150783/react-hooks-usestate-with-object
       // state variables are read-only. You cannot update state variables directly.
-      setLikes(_objectSpread(_objectSpread({}, likes), {}, _defineProperty({}, id, !likes[id])));
-      console.log(id.artistName); //snackState = { open : true, msg : `${id} is clicked`}
+      setLikes(_objectSpread(_objectSpread({}, likes), {}, _defineProperty({}, id, !likes[id]))); //snackState = { open : true, msg : `${id} is clicked`}
 
       setSnackState(_objectSpread(_objectSpread({}, snackState), {}, {
         open: true,
@@ -24246,13 +24245,20 @@ function SearchPage(_ref) {
 
   var handleSearch = function handleSearch(event) {
     event.preventDefault();
-    console.log(searchWord);
     setSearchWord('');
-    fetch("/musicSearch").then(function (r) {
+    fetch("/musicSearch/".concat(searchWord), {
+      method: "GET"
+      /*headers : {
+          'Content-type' : 'text/javascript'
+      }*/
+
+    }).then(function (response) {
+      return response.json();
+    }).then(function (r) {
       return r.json();
     }).then(function (r) {
       console.log(r);
-      onSearch(r.results);
+      console.log(onSearch(r.results));
       setSearchWord('');
     })["catch"](function (e) {
       return console.log('error when search musician');

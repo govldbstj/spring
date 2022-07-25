@@ -22,6 +22,8 @@ public class MyWebController {
     MusicService service;
     @GetMapping(value = "/musicSearch/{name}")
     public MusicList musicSearchByPath(@PathVariable String name){
+        System.out.println(name);
+        System.out.println(service.searchMusic(name));
         return service.searchMusic(name);
     }
     @GetMapping(value="/musicSearch")

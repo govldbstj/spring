@@ -11,6 +11,7 @@ import java.util.Map;
 @Setter
 @ToString
 public class MusicList {
+    public String artistName;
     private Integer resultCount;
     private List<Map<String, Object>> results;
 }
