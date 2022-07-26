@@ -13,7 +13,6 @@ import java.util.Map;
 @ToString
 public class MusicList {
     public String artistName;
-    public int count;
     private Integer resultCount;
     private List<Map<String, Object>> results;
 }

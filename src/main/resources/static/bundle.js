@@ -24158,37 +24158,39 @@ function MusicList(_ref) {
       snackState = _React$useState4[0],
       setSnackState = _React$useState4[1];
 
-  var toggleFavorite = function toggleFavorite(id, name, r, cnt) {
+  var toggleFavorite = function toggleFavorite(id, name, r) {
     return function () {
       // React Hooks useState() with Object
       // https://stackoverflow.com/questions/54150783/react-hooks-usestate-with-object
       // state variables are read-only. You cannot update state variables directly.
-      setLikes(_objectSpread(_objectSpread({}, likes), {}, _defineProperty({}, id, !likes[id]))); //snackState = { open : true, msg : `${id} is clicked`}
+      setLikes(_objectSpread(_objectSpread({}, likes), {}, _defineProperty({}, id, !likes[id])));
+      console.log(likes[id]); //snackState = { open : true, msg : `${id} is clicked`}
 
       setSnackState(_objectSpread(_objectSpread({}, snackState), {}, {
         open: true,
         msg: "".concat(name, " is clicked")
       }));
-      fetch("likes", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(r)
-      }).then(function (r) {
-        return r.json();
-      }).then(cnt = 1).then(console.log(cnt));
 
-      if (cnt == 1) {
-        fetch("likes/".concat(id), {
-          method: "DELETE",
+      if (likes[id] != true) {
+        fetch("likes", {
+          method: "POST",
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(r)
         }).then(function (r) {
           return r.json();
-        }).then(cnt = 0).then(console.log(cnt));
+        });
+      } else if (likes[id] == true) {
+        fetch("/likes/".concat(id), {
+          method: "DELETE",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(r)
+        }).then(function (r) {
+          return r.json;
+        });
       }
     };
   };
@@ -24205,6 +24207,7 @@ function MusicList(_ref) {
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, list.map(function (item) {
+    item.count = 0;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_2__["default"], {
       sx: styles.card,
       key: item.collectionId
@@ -24213,8 +24216,8 @@ function MusicList(_ref) {
     }, " ", item.artistName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_4__["default"], {
       variant: "subtitle2"
     }, " ", item.collectionCensoredName)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_5__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
-      onClick: toggleFavorite(item.collectionId, item.collectionName, item, item.count)
-    }, likes[item.collectionId] === true ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_icons_material__WEBPACK_IMPORTED_MODULE_7__["default"], null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_icons_material__WEBPACK_IMPORTED_MODULE_8__["default"], null))));
+      onClick: toggleFavorite(item.collectionId, item.collectionName, item)
+    }, likes[item.collectionId] == true ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_icons_material__WEBPACK_IMPORTED_MODULE_7__["default"], null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mui_icons_material__WEBPACK_IMPORTED_MODULE_8__["default"], null))));
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SnackMsg__WEBPACK_IMPORTED_MODULE_1__["default"], {
     open: snackState.open,
     message: snackState.msg,
