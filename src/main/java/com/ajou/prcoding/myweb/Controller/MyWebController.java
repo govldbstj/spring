@@ -33,6 +33,7 @@ public class MyWebController {
     public List<FavoriteMusic> getLikes() {
         return service.getLikes();
     }
+
     @PostMapping(value="/likes")
     public int postLikes(@RequestBody FavoriteMusicRequestDto favorite) {
         return service.saveFavorite(favorite);

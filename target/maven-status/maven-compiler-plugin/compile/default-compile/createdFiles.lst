@@ -1,0 +1,7 @@
+com\ajou\prcoding\myweb\Entity\FavoriteMusic.class
+com\ajou\prcoding\myweb\service\MusicService.class
+com\ajou\prcoding\myweb\dto\FavoriteMusicRequestDto.class
+com\ajou\prcoding\myweb\dto\MusicList.class
+com\ajou\prcoding\myweb\MyWebApplication.class
+com\ajou\prcoding\myweb\Controller\MyWebController.class
+com\ajou\prcoding\myweb\repository\FavoriteRepository.class
